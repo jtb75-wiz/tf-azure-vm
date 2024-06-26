@@ -39,27 +39,6 @@ resource "azurerm_public_ip" "my_terraform_public_ip" {
   allocation_method   = "Dynamic"
 }
 
-# Create Network Security Group and rules
-resource "azurerm_network_security_group" "my_terraform_nsg" {
-  name                = "${random_pet.prefix.id}-nsg"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-
-  security_rule {
-    name                       = "RDP"
-    priority                   = 1000
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "*"
-    source_port_range          = "*"
-    destination_port_range     = "3389"
-#    source_address_prefix      = "97.88.204.64/32"
-    source_address_prefix      = "0.0.0.0/0"
-    destination_address_prefix = "*"
-  }
-
-}
-
 resource "azurerm_network_security_group" "my_terraform_nsg" {
   name                = "${random_pet.prefix.id}-nsg"
   location            = azurerm_resource_group.rg.location
